@@ -19,6 +19,14 @@ export default {
       if (isPM) {
         hour += 12
       } 
+      hour = hour.toString()
+      minute = minute.toString()
+      if (hour.length == 1) {
+        hour = '0' + hour
+      }
+      if (minute.length == 1) {
+        minute = '0' + minute
+      }
       const datetime = `2021-01-27 ${hour}:${minute}`
       const payload = {
         datetime,
