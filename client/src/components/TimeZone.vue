@@ -8,18 +8,19 @@
                 <option value='true'>PM</option>
             </select>
             <input v-model='time.date' type='date' name='date' required />
-            <select v-model='time.from_TZ'>
+            <select v-model='time.from_TZ' required>
                 <option v-for="timezone in timezones" :key='timezone' :value='timezone'>{{timezone}}</option>
             </select>
-            <select v-model='time.to_TZ'>
+            <select v-model='time.to_TZ' required>
                 <option v-for="timezone in timezones" :key='timezone' :value='timezone'>{{timezone}}</option>
             </select>
-            <button type="submit">Submit</button>
+            <button type="submit" :disabled='disabled'>Submit</button>
         </form>
     </div>
 </template>
 
 <script>
+    // Timezones list sourced from IANA 
     import timezones from '../assets/timezones.json'
     const local_Tz = Intl.DateTimeFormat().resolvedOptions().timeZone
     const current = new Date()
@@ -48,12 +49,13 @@
                     from_TZ: local_Tz,
                     to_TZ: ''
                 },
-                timezones: timezones
+                timezones: timezones,
+                disabled: false,
             }
         },
         methods: {
             emitTime() {
-                console.log(this.time)
+                this.disabled = true
                 this.$emit('time', this.time)
             }
         }
