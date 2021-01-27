@@ -6,6 +6,7 @@
 
 <script>
 import TimeZone from './components/TimeZone.vue'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -14,7 +15,23 @@ export default {
   },
   methods: {
     submitTime(value) {
-      console.log(value)
+      let { hour, minute, isPM } = value;
+      if (isPM) {
+        hour += 12
+      } 
+      const datetime = `2021-01-27 ${hour}:${minute}`
+      const payload = {
+        datetime,
+        'from_TZ': 'EST',
+        'to_TZ': 'Central Standard Time'
+      }
+      axios.post('http://localhost:9123/convert', payload)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     }
   }
 }
