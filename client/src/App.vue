@@ -19,19 +19,13 @@ export default {
       if (isPM) {
         hour += 12
       } 
-      hour = hour.toString()
-      minute = minute.toString()
-      if (hour.length == 1) {
-        hour = '0' + hour
-      }
-      if (minute.length == 1) {
-        minute = '0' + minute
-      }
+      hour = hour.toString().padStart(2, '0')
+      minute = minute.toString().padStart(2, '0')
       const datetime = `2021-01-27 ${hour}:${minute}`
       const payload = {
         datetime,
-        'from_TZ': 'EST',
-        'to_TZ': 'Central Standard Time'
+        'from_TZ': 'Asia/Dacca',
+        'to_TZ': 'America/Porto_Acre'
       }
       axios.post('http://localhost:9123/convert', payload)
         .then((response) => {
