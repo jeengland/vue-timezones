@@ -15,17 +15,17 @@ export default {
   },
   methods: {
     submitTime(value) {
-      let { hour, minute, isPM } = value;
+      let { hour, minute, isPM, from_TZ, to_TZ, date } = value;
       if (isPM) {
         hour += 12
       } 
       hour = hour.toString().padStart(2, '0')
       minute = minute.toString().padStart(2, '0')
-      const datetime = `2021-01-27 ${hour}:${minute}`
+      const datetime = `${date} ${hour}:${minute}`
       const payload = {
         datetime,
-        'from_TZ': 'Asia/Dacca',
-        'to_TZ': 'America/Porto_Acre'
+        from_TZ,
+        to_TZ
       }
       axios.post('http://localhost:9123/convert', payload)
         .then((response) => {

@@ -8,13 +8,20 @@
                 <option value='true'>PM</option>
             </select>
             <input v-model='time.date' type='date' name='date' required />
+            <select v-model='time.from_TZ'>
+                <option v-for="timezone in timezones" :key='timezone' :value='timezone'>{{timezone}}</option>
+            </select>
+            <select v-model='time.to_TZ'>
+                <option v-for="timezone in timezones" :key='timezone' :value='timezone'>{{timezone}}</option>
+            </select>
             <button type="submit">Submit</button>
         </form>
     </div>
 </template>
 
 <script>
-    const local_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone
+    import timezones from '../assets/timezones.json'
+    const local_Tz = Intl.DateTimeFormat().resolvedOptions().timeZone
     const current = new Date()
     let month = (current.getMonth() + 1 ).toString().padStart(2, '0')
     let day = current.getDate().toString().padStart(2, '0')
@@ -38,8 +45,10 @@
                     hour: hr,
                     minute: current.getMinutes(), 
                     isPM: pm,
-                    from_Tz: local_TZ,
-                }
+                    from_TZ: local_Tz,
+                    to_TZ: ''
+                },
+                timezones: timezones
             }
         },
         methods: {
