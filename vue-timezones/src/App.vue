@@ -1,6 +1,6 @@
 <template>
   <div id='app'>
-    <time-zone></time-zone>
+    <time-zone @time='submitTime'></time-zone>
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
   name: 'App',
   components: {
     TimeZone
+  },
+  methods: {
+    submitTime(value) {
+      console.log(value)
+    }
   }
 }
 </script>
