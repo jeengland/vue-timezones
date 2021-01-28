@@ -3,7 +3,8 @@
     <time-zone @time='submitTime'></time-zone>
     <div v-if='response'>
       <p>At {{ input.hour }}:{{ input.minute.toString().padStart(2, '0') }} {{ input.isPM ? 'PM' : 'AM' }} on {{ input.date }} in the {{ input.from_TZ }} timezone</p>
-      <p>It is on {{ response.time.slice(0, 10) }}</p>
+      <p>it is {{ conHour }}:{{ conMin }} on {{ response.time.slice(0, 10) }} in the {{ input.to_TZ }} timezone.</p>
+      <button @click="reloadPage">Convert Again</button>
     </div>
   </div>
 </template>
@@ -46,15 +47,26 @@ export default {
           console.log(response.data)
           this.response = response.data
           let conHour = parseInt(response.data.time.slice(11, 13))
-          // #TODO handle hour converstion- midnight is coming back as 0 and time is in 24 instead of 12 horur format
-          let conMin = response.data.time.slice(14, 16)
-
+          let pm = 'AM'
+          if (conHour > 11) {
+              pm = 'PM'
+          }
+          if (conHour > 12) {
+              conHour -= 12
+          }
+          if (conHour == 0) {
+              conHour = 12;
+          }
+          let conMin = response.data.time.slice(14, 16) + ' ' + pm
           this.conHour = conHour
           this.conMin = conMin
         })
         .catch((error) => {
           console.error(error)
         })
+    },
+    reloadPage() {
+      location.reload()
     }
   }
 }
