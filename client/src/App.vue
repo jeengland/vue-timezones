@@ -1,10 +1,17 @@
 <template>
   <div class='bg-secondary' id='app'>
     <time-zone @time='submitTime'></time-zone>
-    <div v-if='response'>
-      <p>At {{ input.hour }}:{{ input.minute.toString().padStart(2, '0') }} {{ input.isPM ? 'PM' : 'AM' }} on {{ input.date }} in the {{ input.from_TZ }} timezone</p>
-      <p>it is {{ conHour }}:{{ conMin }} on {{ response.time.slice(0, 10) }} in the {{ input.to_TZ }} timezone.</p>
-      <button @click="reloadPage">Convert Again</button>
+    <div class='card m-1 mx-auto mt-3 bg-dark text-light' style='width: 40rem' v-if='response'>
+      <div class='card-body text-center'>
+        <p style='font-size: 1.5rem'>At</p>
+        <p style='font-size: 1.2rem'>{{ input.hour }}:{{ input.minute.toString().padStart(2, '0') }} {{ input.isPM ? 'PM' : 'AM' }} on {{ input.date }} in the {{ input.from_TZ }} timezone</p>
+        <p style='font-size: 1.5rem'>it is</p>
+        <p style='font-size: 1.2rem'>{{ conHour }}:{{ conMin }} on {{ response.time.slice(0, 10) }} in the {{ input.to_TZ }} timezone.</p>
+        <div class='d-flex row justify-content-center'>
+          <label class="sr-only">Reload page</label>
+          <button class='btn btn-secondary' @click="reloadPage">Convert Again</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
