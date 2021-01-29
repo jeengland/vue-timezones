@@ -1,20 +1,37 @@
 <template>
     <div>
-        <form @submit.prevent='emitTime'>
-            <input v-model='time.hour' type='number' name='hours' min='1' max='12' placeholder='hh' required/>
-            <input v-model='time.minute' type='number' name='minutes' min='0' max='59' placeholder='mm' required/>
-            <select v-model='time.isPM'>
-                <option value='false'>AM</option>
-                <option value='true'>PM</option>
-            </select>
-            <input v-model='time.date' type='date' name='date' required />
-            <select v-model='time.from_TZ' required>
-                <option v-for="timezone in timezones" :key='timezone' :value='timezone'>{{timezone}}</option>
-            </select>
-            <select v-model='time.to_TZ' required>
-                <option v-for="timezone in timezones" :key='timezone' :value='timezone'>{{timezone}}</option>
-            </select>
-            <button type="submit" :disabled='disabled'>Submit</button>
+        <form class='card m-1 p-3' style='width: 30rem' @submit.prevent='emitTime'>
+            <p>Time:</p>
+            <div class='form-group d-flex flex-row'>
+                <label class='sr-only' for='hours'>Hours</label>
+                <input class='form-control' v-model='time.hour' type='number' name='hours' id='hours' min='1' max='12' placeholder='hh' required/>
+                <label class='sr-only' for='minutes'>Minutes</label>
+                <input class='form-control' v-model='time.minute' type='number' name='minutes' id='minutes' min='0' max='59' placeholder='mm' required/>
+                <label class='sr-only' for='amOrPm'>AM or PM</label>
+                <select class='form-control' v-model='time.isPM' id='amOrPm'>
+                    <option value='false'>AM</option>
+                    <option value='true'>PM</option>
+                </select>
+            </div>
+            <div class='form-group'>
+                <label for='date'>Date:</label>
+                <input class='form-control' v-model='time.date' type='date' name='date' id='date' required />
+            </div>
+            <div class='form-group'>
+                <label for='fromTz'>Timezone to convert from:</label>
+                <select class='form-control' id='fromTz' v-model='time.from_TZ' required>
+                    <option value="" disabled>Select timezone</option>
+                    <option v-for="timezone in timezones" :key='timezone' :value='timezone'>{{timezone}}</option>
+                </select>
+            </div>
+            <div class='form-group'>
+                <label for='toTz'>Timezone to convert to:</label>
+                <select class='form-control' id='toTz' v-model='time.to_TZ' required>
+                    <option value="" disabled selected>Select timezone</option>
+                    <option v-for="timezone in timezones" :key='timezone' :value='timezone'>{{timezone}}</option>
+                </select>
+            </div>
+            <button class='btn btn-primary' type="submit" :disabled='disabled'>Submit</button>
         </form>
     </div>
 </template>
