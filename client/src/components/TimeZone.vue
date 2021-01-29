@@ -1,7 +1,9 @@
 <template>
-    <div>
-        <form class='card m-1 p-3' style='width: 30rem' @submit.prevent='emitTime'>
-            <p>Time:</p>
+    <div class='card m-1 mx-auto mt-3 bg-dark text-light' style='width: 30rem'>
+        <fieldset class='card-body' :disabled='disabled'>
+            <h5 class='card-title text-center'>Convert Timezone</h5>
+            <form @submit.prevent='emitTime'>
+            <p class='mb-1'>Time:</p>
             <div class='form-group d-flex flex-row'>
                 <label class='sr-only' for='hours'>Hours</label>
                 <input class='form-control' v-model='time.hour' type='number' name='hours' id='hours' min='1' max='12' placeholder='hh' required/>
@@ -14,7 +16,7 @@
                 </select>
             </div>
             <div class='form-group'>
-                <label for='date'>Date:</label>
+                <label for='date' class='mb-1'>Date:</label>
                 <input class='form-control' v-model='time.date' type='date' name='date' id='date' required />
             </div>
             <div class='form-group'>
@@ -31,8 +33,10 @@
                     <option v-for="timezone in timezones" :key='timezone' :value='timezone'>{{timezone}}</option>
                 </select>
             </div>
-            <button class='btn btn-primary' type="submit" :disabled='disabled'>Submit</button>
+            <label class='sr-only' for='submit'>Submit</label>
+            <button class='btn btn-secondary' id='submit' type="submit" :disabled='disabled'>Submit</button>
         </form>
+        </fieldset>
     </div>
 </template>
 

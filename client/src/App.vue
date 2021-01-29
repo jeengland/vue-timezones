@@ -1,5 +1,5 @@
 <template>
-  <div id='app'>
+  <div class='bg-secondary' id='app'>
     <time-zone @time='submitTime'></time-zone>
     <div v-if='response'>
       <p>At {{ input.hour }}:{{ input.minute.toString().padStart(2, '0') }} {{ input.isPM ? 'PM' : 'AM' }} on {{ input.date }} in the {{ input.from_TZ }} timezone</p>
